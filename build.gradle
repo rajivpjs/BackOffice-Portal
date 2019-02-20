@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+}
+
+group 'com.rppjs'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    integrationTest {
+        java {
+            compileClasspath += main.output + test.output
+            runtimeClasspath += main.output + test.output
+            srcDir file('src/integration-test/java')
+        }
+        resources.srcDir file('src/integration-test/resources')
+    }
+}
+apply plugin: 'checkstyle'
+checkstyle {
+    toolVersion "7.6.1"
+    configFile file("config/checkstyle/checkstyle.xml")
+}
+checkstyleMain {
+    source ='src/main/java'
+}
+checkstyleTest {
+    source ='src/test/java'
+}
+checkstyleIntegrationTest {
+    source ='src/integration-test/java'
+}
+
+dependencies {
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.0.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.0.6.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '2.0.6.RELEASE'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.13'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    compile group: 'org.projectlombok', name: 'lombok', version: '1.18.4'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.0.6.RELEASE'
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.197'
+    testCompile group: 'org.mockito', name: 'mockito-all', version: '2.+'
+    testCompile group: 'org.skyscreamer', name: 'jsonassert', version: '1.2.3'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+    testCompile group: 'nl.jqno.equalsverifier', name: 'equalsverifier', version: '3.1.4'
+    testCompile group: 'org.junit.platform', name: 'junit-platform-engine', version: '1.3.2'
+    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.3.2'
+    testCompile group: 'org.junit.vintage', name: 'junit-vintage-engine', version: '5.3.2'
+}
+
+configurations {
+    integrationTestCompile.extendsFrom testCompile
+    integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+    outputs.upToDateWhen {false}
+}
+
+check.dependsOn integrationTest
+integrationTest.mustRunAfter test

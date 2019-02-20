@@ -1,2 +1,1 @@
-# BackOffice-Portal
-A backoffice portal where you can add suppliers and products
+# Backoffice Portal [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bfc33a9e053b4798868ae54427fd4df9)](https://www.codacy.com/app/rajivpjs/BackOffice-Portal?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rajivpjs/BackOffice-Portal&amp;utm_campaign=Badge_Grade)
