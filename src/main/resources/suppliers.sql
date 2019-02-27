@@ -11,6 +11,6 @@ create table suppliers (
   email varchar(50),
   phone varchar(50) NOT NULL,
   creationDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  lastUpdatedBy timestamp,
+  lastUpdatedBy varchar(50),
   lastModified timestamp
 );
