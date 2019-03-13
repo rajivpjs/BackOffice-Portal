@@ -1,5 +1,6 @@
 package com.rppjs.backoffice.portal.configuration;
 
+import com.rppjs.backoffice.portal.entities.Supplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -46,7 +47,7 @@ public class MySqlConfiguration {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(EntityManagerFactoryBuilder builder) throws IOException {
         return builder.dataSource(mysqlDataSource())
                 .properties((hibernateProperties()))
-                // .packages(Customer.class, User.class)
+                .packages(Supplier.class)
                 .persistenceUnit("mysqlPU")
                 .build();
     }
