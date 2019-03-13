@@ -18,7 +18,7 @@ class SupplierTest {
         Supplier supplier = new Supplier("id", "Supplier", "1", "Street", null, "London", "TW4 179", "United Kingdom",
                 "contactName", "email", "123", creationDate, null, null);
 
-        String expected = "Supplier(supplierId=id, name=Supplier, addressNumber=1, addressLine1=Street, addressLine2=null, " +
+        String expected = "Supplier(supplierEmail=id, name=Supplier, addressNumber=1, addressLine1=Street, addressLine2=null, " +
                 "city=London, postalCode=TW4 179, country=United Kingdom, contactName=contactName, email=email," +
                 " phone=123, creationDate=" + creationDate + ", lastUpdatedBy=null, lastModified=null)";
 

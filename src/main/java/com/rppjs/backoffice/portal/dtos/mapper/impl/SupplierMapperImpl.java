@@ -21,7 +21,7 @@ public class SupplierMapperImpl implements SupplierMapper {
     @Override
     public SupplierResponseDTO supplierToSupplierResponseDTO(Supplier supplier) {
         SupplierResponseDTO supplierResponseDTO = new SupplierResponseDTO();
-        supplierResponseDTO.supplierId = supplier.getSupplierId();
+        supplierResponseDTO.supplierEmail = supplier.getEmail();
         return supplierResponseDTO;
     }
 }

@@ -2,5 +2,5 @@ package com.rppjs.backoffice.portal.dtos;
 
 public class SupplierResponseDTO extends BaseResponseDTO {
 
-    public String supplierId;
+    public String supplierEmail;
 }
