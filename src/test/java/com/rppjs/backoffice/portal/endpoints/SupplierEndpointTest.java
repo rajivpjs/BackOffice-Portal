@@ -7,6 +7,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.never;
+
+import com.rppjs.backoffice.portal.dtos.AddressDTO;
 import com.rppjs.backoffice.portal.dtos.ContactDTO;
 import com.rppjs.backoffice.portal.dtos.SupplierRequestDTO;
 import com.rppjs.backoffice.portal.dtos.SupplierResponseDTO;
@@ -39,9 +41,11 @@ class SupplierEndpointTest {
         when(supplierService.addSupplier(any(SupplierRequestDTO.class))).thenReturn(responseDTO);
 
         SupplierRequestDTO requestDTO = new SupplierRequestDTO();
+        requestDTO.supplierName = "ABC";
         ContactDTO contactDTO = new ContactDTO();
         contactDTO.email = "email@gmail.com";
         requestDTO.contactDTO = contactDTO;
+        requestDTO.addressDTO = new AddressDTO();
 
         ResponseEntity<SupplierResponseDTO> responseEntity = supplierEndpoint.createSupplier(requestDTO);
         assertNotNull(responseDTO);
@@ -56,6 +60,36 @@ class SupplierEndpointTest {
         SupplierResponseDTO responseDTO = new SupplierResponseDTO();
 
         SupplierRequestDTO requestDTO = new SupplierRequestDTO();
+        requestDTO.supplierName = "ABC";
+
+        ResponseEntity<SupplierResponseDTO> responseEntity = supplierEndpoint.createSupplier(requestDTO);
+        assertNotNull(responseDTO);
+        assertEquals(400, responseEntity.getStatusCodeValue());
+        assertNull(responseEntity.getBody());
+
+        verify(supplierService, never()).addSupplier(any(SupplierRequestDTO.class));
+    }
+
+    @Test
+    public void testCreateSupplier_supplierNameMissing_expectsHttpResponse400() {
+        SupplierResponseDTO responseDTO = new SupplierResponseDTO();
+
+        SupplierRequestDTO requestDTO = new SupplierRequestDTO();
+
+        ResponseEntity<SupplierResponseDTO> responseEntity = supplierEndpoint.createSupplier(requestDTO);
+        assertNotNull(responseDTO);
+        assertEquals(400, responseEntity.getStatusCodeValue());
+        assertNull(responseEntity.getBody());
+
+        verify(supplierService, never()).addSupplier(any(SupplierRequestDTO.class));
+    }
+
+    @Test
+    public void testCreateSupplier_addressMissing_expectsHttpResponse400() {
+        SupplierResponseDTO responseDTO = new SupplierResponseDTO();
+
+        SupplierRequestDTO requestDTO = new SupplierRequestDTO();
+        requestDTO.supplierName = "ABC";
 
         ResponseEntity<SupplierResponseDTO> responseEntity = supplierEndpoint.createSupplier(requestDTO);
         assertNotNull(responseDTO);

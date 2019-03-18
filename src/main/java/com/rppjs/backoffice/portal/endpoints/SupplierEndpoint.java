@@ -3,6 +3,7 @@ package com.rppjs.backoffice.portal.endpoints;
 import com.rppjs.backoffice.portal.dtos.SupplierRequestDTO;
 import com.rppjs.backoffice.portal.dtos.SupplierResponseDTO;
 import com.rppjs.backoffice.portal.service.SupplierService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,9 @@ public class SupplierEndpoint {
 
     @RequestMapping(value = "/generate-supplier", method = RequestMethod.POST)
     public ResponseEntity<SupplierResponseDTO> createSupplier(@RequestBody SupplierRequestDTO supplierRequestDTO) {
-        if(supplierRequestDTO.contactDTO == null) {
+        if (StringUtils.isBlank(supplierRequestDTO.supplierName)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } else if (supplierRequestDTO.contactDTO == null || supplierRequestDTO.addressDTO == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         SupplierResponseDTO responseDTO = supplierService.addSupplier(supplierRequestDTO);
