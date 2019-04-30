@@ -37,6 +37,7 @@ class SupplierMapperImplTest {
 
         Supplier supplier = supplierMapper.supplierRequestDTOToSupplier(requestDTO);
         assertNotNull(supplier);
+        assertEquals("email@gmail.com", supplier.getEmail());
     }
 
     @Test
